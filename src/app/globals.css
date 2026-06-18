@@ -1,0 +1,842 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Mentoria brand fonts */
+  --font-outfit: "Outfit", "Outfit Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-outfit);
+  --font-heading: var(--font-outfit);
+  --font-mono: ui-monospace, monospace;
+
+  /* Mentoria brand color tokens */
+  --color-premier-base: #e4e7f2;
+  --color-premier-violet-20: #5941ff;
+  --color-premier-violet-30: #5400e9;
+  --color-premier-violet-40: #4600bb;
+  --color-premier-violet-50: #310099;
+  --color-premier-black: #070707;
+
+  /* Alias to shadcn tokens */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-destructive: var(--destructive);
+  --color-input: var(--input);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: #e4e7f2;
+  --foreground: #070707;
+  --card: #ffffff;
+  --card-foreground: #070707;
+  --popover: #ffffff;
+  --popover-foreground: #070707;
+  --primary: #5941ff;
+  --primary-foreground: #ffffff;
+  --secondary: #e4e7f2;
+  --secondary-foreground: #070707;
+  --muted: #e4e7f2;
+  --muted-foreground: #6b7280;
+  --accent: #5941ff;
+  --accent-foreground: #ffffff;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: rgba(89, 65, 255, 0.2);
+  --input: rgba(89, 65, 255, 0.2);
+  --ring: #5941ff;
+  --radius: 0.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-black text-white font-[family-name:var(--font-outfit)];
+    font-family: "Outfit", "Outfit Fallback", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+}
+
+/* Brand utility classes */
+@layer utilities {
+  /* Legacy aliases kept for backward compat */
+  .bg-premier-base { background-color: #e4e7f2; }
+  .bg-premier-violet-20 { background-color: #5941ff; }
+  .bg-premier-violet-30 { background-color: #5400e9; }
+  .bg-premier-violet-40 { background-color: #4600bb; }
+  .bg-premier-violet-50 { background-color: #310099; }
+  .text-premier-base { color: #e4e7f2; }
+  .text-premier-violet-20 { color: #5941ff; }
+  .text-premier-violet-30 { color: #5400e9; }
+  .border-premier-violet-20 { border-color: #5941ff; }
+  .border-premier-violet-30 { border-color: #5400e9; }
+
+  /* Mentoria brand utilities */
+  .bg-mentoria-violet { background-color: #5941ff; }
+  .text-mentoria-violet { color: #5941ff; }
+  .border-mentoria-violet { border-color: #5941ff; }
+
+  /* Section label pill style */
+  .section-label {
+    @apply inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm text-white backdrop-blur-sm;
+  }
+  .section-label-dark {
+    @apply inline-flex items-center rounded-full border border-black/20 bg-black/10 px-4 py-1.5 text-sm text-black backdrop-blur-sm;
+  }
+
+  /* CTA button: purple pill with arrow */
+  .btn-premier {
+    @apply inline-flex items-center gap-3 rounded-full bg-[#5400e9] px-6 py-3 text-base font-medium text-white transition-all duration-200 hover:bg-[#4600bb];
+  }
+  .btn-premier-outline {
+    @apply inline-flex items-center gap-3 rounded-full border border-[#5400e9]/60 px-6 py-3 text-base font-medium text-white transition-all duration-200 hover:border-[#5400e9] hover:bg-[#5400e9]/10;
+  }
+}
+
+/* Scrollbar hiding utility */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Black-to-white and white-to-black gradient transitions */
+.black-to-white {
+  background: linear-gradient(to bottom, #000 0%, #e4e7f2 8%);
+}
+.white-to-black {
+  background: linear-gradient(to bottom, #e4e7f2 0%, #000 4%);
+}
+
+/* Swiper overrides */
+:root {
+  --swiper-theme-color: #5941ff;
+}
+
+/* Marquee animation for fintech badges */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Premium light theme: broad overrides for the dark product surfaces.
+
+   Uses `~=` (exact whitespace-delimited token match) rather than `*=`
+   (substring match). Substring matching is wrong here: `bg-white/10` is a
+   substring of `hover:bg-white/10`, so a `*=` rule would force a hover-only
+   tint onto an element's *default* state too (e.g. a modal close button
+   would show a permanent white circle instead of one that appears on
+   hover). `~=` matches a class only when it appears as its own token, so
+   base and `hover:`/`focus:` variants are handled by separate rules below.
+
+   Text collapses to three flat slate tiers instead of a continuous opacity
+   blend — a blend asymptotically approaches invisible at low source-opacity
+   values (the "washed out / pale" bug), whereas a flat floor guarantees every
+   tier stays at or above slate-500 contrast on a white card. */
+.theme-light body {
+  background: #f4f6fb !important;
+  color: #0f172a !important;
+}
+.theme-light [class~="bg-black"] { background-color: #f4f6fb !important; }
+.theme-light [class~="bg-[#0a0a0a]"] { background-color: #ffffff !important; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05); }
+.theme-light [class~="bg-[#050609]"] { background-color: #f4f6fb !important; }
+.theme-light [class~="bg-[#0c0d12]/95"] { background-color: #ffffff !important; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06); }
+
+/* Card / chip surfaces -> solid white with a hint of elevation, per "Cards: bg-white" */
+.theme-light [class~="bg-white/2"],
+.theme-light [class~="bg-white/3"],
+.theme-light [class~="bg-white/4"],
+.theme-light [class~="bg-white/5"],
+.theme-light [class~="bg-white/6"],
+.theme-light [class~="bg-white/8"],
+.theme-light [class~="bg-white/10"],
+.theme-light [class~="bg-white/15"],
+.theme-light [class~="bg-white/20"],
+.theme-light [class~="bg-white/28"],
+.theme-light [class~="bg-white/70"],
+.theme-light [class~="bg-white/[0.018]"],
+.theme-light [class~="bg-white/[0.02]"],
+.theme-light [class~="bg-white/[0.025]"],
+.theme-light [class~="bg-white/[0.03]"],
+.theme-light [class~="bg-white/[0.032]"],
+.theme-light [class~="bg-white/[0.035]"],
+.theme-light [class~="bg-white/[0.04]"],
+.theme-light [class~="bg-white/[0.045]"],
+.theme-light [class~="bg-white/[0.05]"],
+.theme-light [class~="bg-white/[0.052]"],
+.theme-light [class~="bg-white/[0.055]"],
+.theme-light [class~="bg-white/[0.06]"] {
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 0 rgba(15, 23, 42, 0.02);
+}
+/* Hover variants of the same surfaces -> one step darker, so hover stays visible on white */
+.theme-light [class~="hover:bg-white/3"]:hover,
+.theme-light [class~="hover:bg-white/5"]:hover,
+.theme-light [class~="hover:bg-white/8"]:hover,
+.theme-light [class~="hover:bg-white/10"]:hover,
+.theme-light [class~="hover:bg-white/20"]:hover,
+.theme-light [class~="hover:bg-white/[0.04]"]:hover,
+.theme-light [class~="hover:bg-white/[0.045]"]:hover,
+.theme-light [class~="hover:bg-white/[0.05]"]:hover,
+.theme-light [class~="hover:bg-white/[0.052]"]:hover,
+.theme-light [class~="hover:bg-white/[0.055]"]:hover,
+.theme-light [class~="hover:bg-white/[0.06]"]:hover {
+  background-color: #f1f5f9 !important; /* slate-100 */
+}
+
+/* Text opacity steps -> three flat slate tiers (never lighter than slate-500) */
+.theme-light [class~="text-white"] { color: #0f172a !important; } /* main: slate-900 */
+.theme-light [class~="text-white/90"],
+.theme-light [class~="text-white/80"],
+.theme-light [class~="text-white/75"] {
+  color: #0f172a !important; /* main: slate-900 */
+}
+.theme-light [class~="text-white/72"],
+.theme-light [class~="text-white/70"],
+.theme-light [class~="text-white/68"],
+.theme-light [class~="text-white/65"],
+.theme-light [class~="text-white/62"],
+.theme-light [class~="text-white/60"],
+.theme-light [class~="text-white/58"],
+.theme-light [class~="text-white/55"],
+.theme-light [class~="text-white/50"],
+.theme-light [class~="text-white/48"],
+.theme-light [class~="text-white/45"] {
+  color: #334155 !important; /* secondary: slate-700 */
+}
+.theme-light [class~="text-white/42"],
+.theme-light [class~="text-white/40"],
+.theme-light [class~="text-white/38"],
+.theme-light [class~="text-white/35"],
+.theme-light [class~="text-white/30"],
+.theme-light [class~="text-white/28"],
+.theme-light [class~="text-white/25"],
+.theme-light [class~="text-white/20"] {
+  color: #64748b !important; /* muted floor: slate-500 — never lighter than this */
+}
+.theme-light [class~="hover:text-white"]:hover,
+.theme-light [class~="hover:text-white/80"]:hover,
+.theme-light [class~="hover:text-white/70"]:hover {
+  color: #020617 !important; /* slate-950 on hover for a clear "active" cue */
+}
+
+/* Border opacity steps -> a real visible neutral border (no purple overload) */
+.theme-light [class~="border-white/5"],
+.theme-light [class~="border-white/8"],
+.theme-light [class~="border-white/9"],
+.theme-light [class~="border-white/10"],
+.theme-light [class~="border-white/12"],
+.theme-light [class~="border-white/15"],
+.theme-light [class~="border-white/20"],
+.theme-light [class~="border-white/22"],
+.theme-light [class~="border-white/30"] {
+  border-color: #e2e8f0 !important; /* slate-200 */
+}
+.theme-light [class~="hover:border-white/16"]:hover,
+.theme-light [class~="hover:border-white/18"]:hover,
+.theme-light [class~="hover:border-white/20"]:hover,
+.theme-light [class~="hover:border-white/25"]:hover,
+.theme-light [class~="hover:border-white/30"]:hover {
+  border-color: #cbd5e1 !important; /* slate-300 — visibly darker on hover */
+}
+.theme-light [class~="divide-white/5"] {
+  border-color: #e2e8f0 !important;
+}
+
+.theme-light [class~="placeholder:text-white/25"]::placeholder,
+.theme-light [class~="placeholder:text-white/30"]::placeholder {
+  color: #64748b !important;
+}
+.theme-light input,
+.theme-light textarea,
+.theme-light select {
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+.theme-light input:focus,
+.theme-light textarea:focus,
+.theme-light select:focus {
+  border-color: #5941ff !important;
+  box-shadow: 0 0 0 3px rgba(89, 65, 255, 0.14);
+}
+.theme-light table [class~="text-white"] { color: inherit; }
+
+/* ── Homepage hero: always dark/cinematic in every theme ───────────────────
+   The hero is a full-bleed animated visual. It must stay dark even in light
+   mode. Broad light-theme text-white rules (0,2,0) are beaten here at 0,3,0.
+
+   Uses [class~="text-white/80"] attribute-selector form instead of the
+   .text-white\/80 backslash-escaped class selector — Turbopack's CSS parser
+   accepts the escaped form syntactically but mishandles the \/ token at
+   runtime, causing the rule to be silently dropped so the broad dark-text
+   override wins. Attribute selector values are quoted strings where / is a
+   plain character, so Turbopack parses and applies them correctly.
+
+   hero-dark-surface is added alongside mentoria-hero in HeroSection.tsx
+   for a second higher-specificity (0,4,0) override layer. */
+.theme-light .mentoria-hero,
+.theme-light .hero-dark-surface {
+  color: #ffffff !important;          /* all un-classed children (h1, p) inherit */
+  /* No background-color here: the desktop scroll wrapper used by the animated hero can
+     span multiple viewports, and forcing it black in light mode would create a
+     dark void behind the scroll track. The mobile hero uses its own static
+     descendant surface.
+     The dark appearance comes from the inner video/gradient layers whose own
+     bg-black classes ARE overridden to black by the descendant rule below. */
+}
+.theme-light .mentoria-hero [class~="bg-black"],
+.theme-light .hero-dark-surface [class~="bg-black"] {
+  background-color: #000000 !important;
+}
+.theme-light .mentoria-hero [class~="bg-white"],
+.theme-light .hero-dark-surface [class~="bg-white"] {
+  background-color: #ffffff !important;
+}
+/* Elements that carry an explicit text-white* class — prevent the broad
+   [class~="text-white"] at 0,2,0 from winning over these 0,3,0 rules. */
+.theme-light .mentoria-hero [class~="text-white"],
+.theme-light .hero-dark-surface [class~="text-white"] {
+  color: #ffffff !important;
+}
+.theme-light .mentoria-hero [class~="text-white/90"],
+.theme-light .hero-dark-surface [class~="text-white/90"] {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.theme-light .mentoria-hero [class~="text-white/80"],
+.theme-light .hero-dark-surface [class~="text-white/80"] {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+.theme-light .mentoria-hero [class~="text-white/70"],
+.theme-light .hero-dark-surface [class~="text-white/70"] {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+/* h1 / h2 in the hero carry no explicit text-* class; they rely on
+   inheritance from the parent text-layer div. Pinning them explicitly
+   removes any risk of the body dark-color value leaking through a
+   broken inheritance chain. */
+.theme-light .mentoria-hero h1,
+.theme-light .mentoria-hero h2,
+.theme-light .hero-dark-surface h1,
+.theme-light .hero-dark-surface h2 {
+  color: #ffffff !important;
+}
+
+/* Onboarding needs higher contrast in light mode than the broad app fallback. */
+.theme-light .mentoria-onboarding {
+  --onboarding-progress-muted: #cfd7e6;
+  background:
+    radial-gradient(circle at top left, rgba(89, 65, 255, 0.11), transparent 34rem),
+    linear-gradient(180deg, #eef2f7 0%, #e8edf5 100%) !important;
+  color: #111827 !important;
+}
+.theme-light .mentoria-onboarding .onboarding-card {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(148, 163, 184, 0.48) !important;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.14), 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+}
+.theme-light .mentoria-onboarding .onboarding-kicker {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border-color: rgba(148, 163, 184, 0.42) !important;
+  color: #334155 !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+.theme-light .mentoria-onboarding .onboarding-title,
+.theme-light .mentoria-onboarding .text-white {
+  color: #0f172a !important;
+}
+.theme-light .mentoria-onboarding .onboarding-label {
+  color: #1f2937 !important;
+}
+.theme-light .mentoria-onboarding .onboarding-muted,
+.theme-light .mentoria-onboarding .onboarding-helper {
+  color: #475569 !important;
+}
+.theme-light .mentoria-onboarding .onboarding-footer-note {
+  color: #64748b !important;
+}
+.theme-light .mentoria-onboarding .onboarding-input {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.theme-light .mentoria-onboarding .onboarding-input:focus {
+  border-color: #5941ff !important;
+  box-shadow: 0 0 0 4px rgba(89, 65, 255, 0.14);
+}
+.theme-light .mentoria-onboarding .placeholder-white\/30::placeholder {
+  color: #64748b !important;
+}
+.theme-light .mentoria-onboarding .onboarding-choice-unselected {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+.theme-light .mentoria-onboarding .onboarding-choice-unselected:hover {
+  background: #ffffff !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+}
+.theme-light .mentoria-onboarding .onboarding-choice-selected,
+.theme-light .mentoria-onboarding .onboarding-choice-selected-soft {
+  border-color: #5941ff !important;
+  color: #ffffff !important;
+}
+.theme-light .mentoria-onboarding .onboarding-choice-selected {
+  background: #5941ff !important;
+}
+.theme-light .mentoria-onboarding .onboarding-choice-selected-soft {
+  background: rgba(89, 65, 255, 0.13) !important;
+  color: #3520b7 !important;
+}
+.theme-light .mentoria-onboarding .onboarding-selected-note {
+  background: rgba(89, 65, 255, 0.09) !important;
+  border-color: rgba(89, 65, 255, 0.24) !important;
+  color: #3520b7 !important;
+}
+.theme-light .mentoria-onboarding .onboarding-review-row {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0;
+}
+.theme-light .mentoria-onboarding .onboarding-secondary-button {
+  background: rgba(255, 255, 255, 0.72) !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+.theme-light .mentoria-onboarding .onboarding-secondary-button:hover {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+.theme-light .mentoria-onboarding .onboarding-loading-overlay {
+  background: #000000 !important;
+}
+.theme-light .mentoria-onboarding .onboarding-loading-overlay .text-white {
+  color: #ffffff !important;
+}
+.theme-light .mentoria-onboarding .onboarding-loading-overlay .text-white\/50 {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+.theme-light .mentoria-onboarding .onboarding-loading-overlay .text-white\/25 {
+  color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* ── Product page light-theme extensions ──────────────────────────────────
+   These extend the broad overrides above with patterns that appear in the
+   app pages but were not covered by the initial pass.
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* Frosted nav backdrop (roadmap page) */
+.theme-light [class~="bg-[#050609]/85"] {
+  background-color: rgba(248, 250, 252, 0.92) !important;
+}
+
+/* Opaque fractional-black surfaces — action strips, mini-cards, badges */
+.theme-light [class~="bg-black/16"] {
+  background-color: #eef0ff !important; /* violet-tinted — action-next strips */
+}
+.theme-light [class~="bg-black/18"],
+.theme-light [class~="bg-black/20"] {
+  background-color: #f8fafc !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.theme-light [class~="bg-black/25"],
+.theme-light [class~="bg-black/30"] {
+  background-color: #f1f5f9 !important;
+}
+
+/* Step-number circle on roadmap */
+.theme-light [class~="bg-[#0d0f14]"] {
+  background-color: #eef0f8 !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+
+/* Roadmap timeline vertical line */
+.theme-light [class~="from-white/22"] { --tw-gradient-from: #c7b8ff !important; }
+.theme-light [class~="via-white/10"]  { --tw-gradient-via:  #ede9fe !important; }
+
+/* Brand violet icon used in dark mode (#8b7fff) → full violet on light */
+.theme-light [class~="text-\[#8b7fff\]"] { color: #5941ff !important; }
+
+/* ── Colored chip/pill text — *-300 series are ~2:1 contrast on white ── */
+.theme-light [class~="text-sky-300"],
+.theme-light [class~="text-sky-400"]        { color: #0369a1 !important; }
+.theme-light [class~="text-emerald-300"],
+.theme-light [class~="text-emerald-400"]    { color: #065f46 !important; }
+.theme-light [class~="text-violet-300"],
+.theme-light [class~="text-violet-400"]     { color: #5b21b6 !important; }
+.theme-light [class~="text-blue-300"],
+.theme-light [class~="text-blue-400"]       { color: #1e40af !important; }
+.theme-light [class~="text-indigo-300"],
+.theme-light [class~="text-indigo-400"]     { color: #3730a3 !important; }
+.theme-light [class~="text-amber-300"],
+.theme-light [class~="text-amber-400"]      { color: #92400e !important; }
+.theme-light [class~="text-yellow-300"],
+.theme-light [class~="text-yellow-400"]     { color: #a16207 !important; }
+.theme-light [class~="text-green-300"],
+.theme-light [class~="text-green-400"]      { color: #166534 !important; }
+.theme-light [class~="text-orange-300"],
+.theme-light [class~="text-orange-400"]     { color: #c2410c !important; }
+.theme-light [class~="text-pink-300"],
+.theme-light [class~="text-pink-400"]       { color: #9d174d !important; }
+.theme-light [class~="text-cyan-300"],
+.theme-light [class~="text-cyan-400"]       { color: #0e7490 !important; }
+.theme-light [class~="text-rose-300"],
+.theme-light [class~="text-rose-400"]       { color: #be123c !important; }
+.theme-light [class~="text-purple-300"],
+.theme-light [class~="text-purple-400"]     { color: #7e22ce !important; }
+.theme-light [class~="text-red-400"]        { color: #dc2626 !important; }
+
+/* ── Colored chip/pill backgrounds — near-transparent on white → solid tints */
+.theme-light [class~="bg-violet-500/15"],
+.theme-light [class~="bg-purple-500/20"]    { background-color: #ede9fe !important; }
+.theme-light [class~="bg-violet-500/20"]    { background-color: #ddd6fe !important; }
+.theme-light [class~="bg-blue-500/15"]      { background-color: #dbeafe !important; }
+.theme-light [class~="bg-blue-500/20"]      { background-color: #bfdbfe !important; }
+.theme-light [class~="bg-indigo-500/15"],
+.theme-light [class~="bg-indigo-500/20"]    { background-color: #e0e7ff !important; }
+.theme-light [class~="bg-emerald-400/8"],
+.theme-light [class~="bg-emerald-500/15"]   { background-color: #d1fae5 !important; }
+.theme-light [class~="bg-emerald-400/12"],
+.theme-light [class~="bg-emerald-500/20"]   { background-color: #a7f3d0 !important; }
+.theme-light [class~="bg-sky-400/8"],
+.theme-light [class~="bg-sky-500/20"]       { background-color: #e0f2fe !important; }
+.theme-light [class~="bg-sky-400/12"]       { background-color: #bae6fd !important; }
+.theme-light [class~="bg-amber-500/15"]     { background-color: #fef3c7 !important; }
+.theme-light [class~="bg-amber-500/20"]     { background-color: #fde68a !important; }
+.theme-light [class~="bg-yellow-500/20"]    { background-color: #fef9c3 !important; }
+.theme-light [class~="bg-green-500/20"]     { background-color: #dcfce7 !important; }
+.theme-light [class~="bg-orange-500/15"],
+.theme-light [class~="bg-orange-500/20"]    { background-color: #ffedd5 !important; }
+.theme-light [class~="bg-pink-500/15"],
+.theme-light [class~="bg-pink-500/20"]      { background-color: #fce7f3 !important; }
+.theme-light [class~="bg-cyan-500/15"],
+.theme-light [class~="bg-cyan-500/20"]      { background-color: #cffafe !important; }
+.theme-light [class~="bg-rose-500/20"]      { background-color: #ffe4e6 !important; }
+
+/* ── Colored chip/pill borders */
+.theme-light [class~="border-sky-400/18"]    { border-color: #7dd3fc !important; }
+.theme-light [class~="border-emerald-400/18"] { border-color: #6ee7b7 !important; }
+.theme-light [class~="border-emerald-400/35"] { border-color: #34d399 !important; }
+.theme-light [class~="border-violet-500/25"] { border-color: #a78bfa !important; }
+.theme-light [class~="border-violet-500/30"] { border-color: #8b5cf6 !important; }
+.theme-light [class~="border-blue-500/25"]   { border-color: #93c5fd !important; }
+.theme-light [class~="border-blue-500/30"]   { border-color: #60a5fa !important; }
+.theme-light [class~="border-indigo-500/20"] { border-color: #a5b4fc !important; }
+.theme-light [class~="border-emerald-500/25"] { border-color: #6ee7b7 !important; }
+.theme-light [class~="border-emerald-500/30"] { border-color: #34d399 !important; }
+.theme-light [class~="border-amber-500/25"]  { border-color: #fcd34d !important; }
+.theme-light [class~="border-amber-500/30"]  { border-color: #fbbf24 !important; }
+.theme-light [class~="border-yellow-500/20"] { border-color: #fde047 !important; }
+.theme-light [class~="border-green-500/20"]  { border-color: #86efac !important; }
+.theme-light [class~="border-orange-500/20"] { border-color: #fdba74 !important; }
+.theme-light [class~="border-pink-500/20"]   { border-color: #f9a8d4 !important; }
+.theme-light [class~="border-pink-500/25"]   { border-color: #f472b6 !important; }
+.theme-light [class~="border-cyan-500/20"]   { border-color: #67e8f9 !important; }
+.theme-light [class~="border-rose-500/20"]   { border-color: #fecdd3 !important; }
+.theme-light [class~="border-purple-500/20"] { border-color: #d8b4fe !important; }
+
+/* ── NastavChat panel — scoped hierarchy so inner cards ≠ outer card ── */
+.theme-light .nastav-chat {
+  background: #ffffff !important;
+  border-color: #dde3f0 !important;
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.05) !important;
+}
+.theme-light .nastav-intro-card {
+  background: #f4f6fb !important;
+  border-color: #dde3f0 !important;
+}
+.theme-light .nastav-prompt-btn {
+  background: #f4f6fb !important;
+  border-color: #dde3f0 !important;
+  color: #334155 !important;
+}
+.theme-light .nastav-prompt-btn:hover {
+  background: #eef0ff !important;
+  border-color: #c7b8ff !important;
+  color: #3520b7 !important;
+}
+.theme-light .nastav-reprompt-btn {
+  background: #f4f6fb !important;
+  border-color: #dde3f0 !important;
+  color: #475569 !important;
+}
+.theme-light .nastav-reprompt-btn:hover {
+  background: #eef0ff !important;
+  border-color: #c7b8ff !important;
+  color: #3520b7 !important;
+}
+.theme-light .nastav-assistant-bubble {
+  background: #f4f6fb !important;
+  border-color: #dde3f0 !important;
+}
+.theme-light .nastav-msg-icon {
+  background: #f4f6fb !important;
+  border-color: #dde3f0 !important;
+  color: #64748b !important;
+}
+.theme-light .nastav-action-link {
+  background: #f4f6fb !important;
+  border-color: #dde3f0 !important;
+  color: #334155 !important;
+}
+.theme-light .nastav-action-link:hover {
+  border-color: #a78bfa !important;
+  color: #0f172a !important;
+}
+
+/* ── Roadmap grade timeline — active button gets violet tint in light ── */
+.theme-light .grade-btn-active {
+  background: #eef0ff !important;
+  border-color: #a78bfa !important;
+  color: #3b1fa8 !important;
+  box-shadow: 0 1px 3px rgba(89, 65, 255, 0.12);
+}
+.theme-light .grade-btn-inactive {
+  background: #f8fafc !important;
+  border-color: #e8ecf4 !important;
+  color: #94a3b8 !important;
+}
+
+/* ── Primary violet buttons — white text in light theme ────────────────────
+   [class~="value"] attribute selectors parse correctly in Turbopack and
+   in the production build because the value is a quoted string (the `#`
+   and `[` `]` characters have no special meaning inside CSS quotes).
+
+   Rule A: color on the parent element itself — children with NO own color
+           declaration will inherit white through normal CSS cascade.
+   Rule B: explicit text-white descendants need a higher-specificity
+           override (0,3,0) to beat the broad .theme-light [class~="text-white"]
+           rule (0,2,0) that turns all text-white dark.
+   Rule C: SVG icons use currentColor for their stroke; setting color on the
+           parent (Rule A) is usually enough, but the explicit rule covers
+           icons that have their own text-white class.
+   .btn-primary-violet is a semantic hook for inline-style buttons (where
+   there is no bg class in the DOM to match on).                            */
+
+/* A — parent */
+.theme-light [class~="bg-[#5941ff]"],
+.theme-light [class~="bg-[#4730dd]"],
+.theme-light [class~="bg-[#5400e9]"],
+.theme-light [class~="bg-[#4600bb]"],
+.theme-light [class~="bg-[#4500c4]"],
+.theme-light .btn-primary-violet {
+  color: #ffffff !important;
+}
+
+/* B — text-white descendants */
+.theme-light [class~="bg-[#5941ff]"] [class~="text-white"],
+.theme-light [class~="bg-[#4730dd]"] [class~="text-white"],
+.theme-light [class~="bg-[#5400e9]"] [class~="text-white"],
+.theme-light [class~="bg-[#4600bb]"] [class~="text-white"],
+.theme-light [class~="bg-[#4500c4]"] [class~="text-white"],
+.theme-light .btn-primary-violet [class~="text-white"] {
+  color: #ffffff !important;
+}
+
+/* C — SVG icons */
+.theme-light [class~="bg-[#5941ff]"] svg,
+.theme-light [class~="bg-[#4730dd]"] svg,
+.theme-light [class~="bg-[#5400e9]"] svg,
+.theme-light [class~="bg-[#4600bb]"] svg,
+.theme-light [class~="bg-[#4500c4]"] svg,
+.theme-light .btn-primary-violet svg {
+  color: #ffffff !important;
+}
+
+/* ── FAQSection: active card dark bg → white card in light mode ────────────
+   The open first-item card uses bg-[#141414] (near-black). The broad rules
+   already turn text-white → #0f172a and text-white/70 → #334155, but
+   bg-[#141414] has no broad override so it stays dark — dark text on dark
+   card. Override it to white here, scoped to .faq-section so no other
+   component that happens to use the same hex is affected. */
+.theme-light .faq-section [class~="bg-[#141414]"] {
+  background-color: #ffffff !important;
+  box-shadow: 0 2px 16px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+}
+
+/* ── FintechBadges marquee fade masks — match light page background ────────
+   The masks use from-black in their Tailwind gradient class. The broad
+   bg-black override turns the section background to #f4f6fb, but from-black
+   is a different class token and is not caught by that rule. The black
+   gradient masks then appear as ugly black rectangles on the light bg.
+   Scope fix to .fintech-badges to avoid affecting the hero gradient layer. */
+.theme-light .fintech-badges [class~="bg-gradient-to-r"][class~="from-black"] {
+  background-image: linear-gradient(to right, #f4f6fb, transparent) !important;
+}
+.theme-light .fintech-badges [class~="bg-gradient-to-l"][class~="from-black"] {
+  background-image: linear-gradient(to left, #f4f6fb, transparent) !important;
+}
+
+/* ── /nastav full-screen chat — light theme overrides ─────────────────────
+   bg-[#060608] (page wrapper root + input bar strip) and bg-[#09090f]
+   (sidebar + delete-confirm popup) are unique hex values with no broad
+   override. Scope to .nastav-page so unrelated pages are unaffected.
+
+   Specificity map:
+     .theme-light .nastav-page                  → 0,2,0  page canvas
+     .theme-light .nastav-page [class~="…"]     → 0,3,0  element override
+     .theme-light .nastav-page aside            → 0,2,1  sidebar
+     .theme-light .nastav-page aside [class~="…"] → 0,3,1  inner override  */
+
+/* Page canvas — outer wrapper uses bg-[#060608] but .nastav-page itself
+   gets this rule (descendant combinator does NOT self-match), so the outer
+   div becomes #f4f6fb and only the INPUT BAR inner div with the same class
+   is caught by the descendant rule below.                                   */
+.theme-light .nastav-page {
+  background-color: #f4f6fb !important;
+}
+
+/* Input bar bottom strip */
+.theme-light .nastav-page [class~="bg-[#060608]"] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Sidebar surface — the border-right class is border-white/8 (caught by the
+   broad border rule → #e2e8f0), but the border-color here adds redundancy   */
+.theme-light .nastav-page aside {
+  background-color: #ffffff !important;
+  border-color: #dde3f0 !important;
+}
+
+/* Sidebar delete-confirm popup and any other bg-[#09090f] inside the page  */
+.theme-light .nastav-page [class~="bg-[#09090f]"] {
+  background-color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+/* Active sidebar chat button — the broad bg-white/10 rule (specificity 0,2,0)
+   turns bg-white/10 to plain #ffffff, which is invisible against the white
+   sidebar. Override to a violet tint at higher specificity (0,3,1).          */
+.theme-light .nastav-page aside [class~="bg-white/10"] {
+  background-color: #eef0ff !important;
+  box-shadow: none !important;
+}
+
+/* ── .dark-surface: permanently dark sections on the homepage ──────────────
+   Some homepage sections use inline-style backgrounds (e.g. IntroSection's
+   radial-gradient) that are NOT class attributes and therefore can't be
+   caught by the broad .theme-light [class~="bg-*"] rules. Their backgrounds
+   remain dark in light mode, but the broad text-white overrides make the
+   text dark too — invisible text on a dark surface.
+
+   Adding `dark-surface` to such a section's outer element and adding these
+   rules at specificity 0,3,0 (one level above the broad rules' 0,2,0) keeps
+   all white text readable regardless of the user's theme selection.           */
+
+.theme-light .dark-surface {
+  color: #ffffff;                                  /* bare text children inherit */
+}
+.theme-light .dark-surface [class~="text-white"] {
+  color: #ffffff !important;
+}
+.theme-light .dark-surface [class~="text-white/90"] {
+  color: rgba(255,255,255,0.90) !important;
+}
+.theme-light .dark-surface [class~="text-white/80"] {
+  color: rgba(255,255,255,0.80) !important;
+}
+.theme-light .dark-surface [class~="text-white/75"] {
+  color: rgba(255,255,255,0.75) !important;
+}
+.theme-light .dark-surface [class~="text-white/70"] {
+  color: rgba(255,255,255,0.70) !important;
+}
+.theme-light .dark-surface [class~="text-white/65"] {
+  color: rgba(255,255,255,0.65) !important;
+}
+.theme-light .dark-surface [class~="text-white/60"] {
+  color: rgba(255,255,255,0.60) !important;
+}
+.theme-light .dark-surface [class~="text-white/55"] {
+  color: rgba(255,255,255,0.55) !important;
+}
+.theme-light .dark-surface [class~="text-white/50"] {
+  color: rgba(255,255,255,0.50) !important;
+}
+.theme-light .dark-surface [class~="text-white/45"] {
+  color: rgba(255,255,255,0.45) !important;
+}
+.theme-light .dark-surface [class~="text-white/40"] {
+  color: rgba(255,255,255,0.40) !important;
+}
+/* Preserve glass card surfaces within dark sections */
+.theme-light .dark-surface [class~="bg-white/5"],
+.theme-light .dark-surface [class~="bg-white/8"],
+.theme-light .dark-surface [class~="bg-white/10"] {
+  background-color: rgba(255,255,255,0.06) !important;
+  box-shadow: none !important;
+}
+.theme-light .dark-surface [class~="border-white/10"],
+.theme-light .dark-surface [class~="border-white/15"],
+.theme-light .dark-surface [class~="border-white/20"] {
+  border-color: rgba(255,255,255,0.12) !important;
+}
+/* Hover bg inside dark sections — keep them translucent, not the slate-100 override */
+.theme-light .dark-surface [class~="hover:bg-white/10"]:hover {
+  background-color: rgba(255,255,255,0.10) !important;
+}
+/* Violet buttons inside dark sections keep white text */
+.theme-light .dark-surface [class~="bg-[#5400e9]"],
+.theme-light .dark-surface [class~="bg-[#5941ff]"] {
+  color: #ffffff !important;
+}
+
+/* ── Roadmap step number circles: light theme overrides ──────────────────────
+   These rules target elements that have named semantic classes added alongside
+   Tailwind utility classes (or alongside inline styles in the dashboard widget).
+   `!important` is required here because dashboard circles use inline `style`
+   props — author !important beats inline styles per the CSS cascade.          */
+.theme-light .roadmap-step-number {
+  background: #ffffff !important;
+  border: 2px solid #6d5dfc !important;
+  color: #4535c7 !important;
+  box-shadow: 0 4px 14px rgba(89, 65, 255, 0.18) !important;
+}
+.theme-light .roadmap-step-number-done {
+  background: #5941ff !important;
+  border: 2px solid #5941ff !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(89, 65, 255, 0.32) !important;
+}
+
+/* Connector line between steps: near-invisible white gradient → visible violet */
+.theme-light .roadmap-step-line {
+  background: rgba(89, 65, 255, 0.22) !important;
+}
